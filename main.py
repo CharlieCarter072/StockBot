@@ -1,10 +1,10 @@
-from P_test_account.test_account import *
+from P_virtual_account.virtual_account import *
 
 
-MTA = Test_Account()
+MTA = Virtual_Account()
+MTA.load_assets()
 
 def main():
-    MTA.buy("TSLA", 10, 2.66)
     print(MTA.assets)
 
 
