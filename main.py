@@ -6,6 +6,7 @@ MTA.load_assets()
 
 def main():
     print(MTA.assets)
+    raise Exception("test")
 
 
 if __name__ == "__main__":

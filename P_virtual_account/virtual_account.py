@@ -8,6 +8,7 @@ class Virtual_Account:
             "balance": self.balance,
             "stocks": {}
         }
+        self.verbose = False
     
     def load_assets(self):
         with open("P_virtual_account/virtual_account_data.json", "r") as save_file:
@@ -27,14 +28,17 @@ class Virtual_Account:
                 "shares": shares
             }
         self.save_assets()
-        print(f"{shares} shares of {symbol} bought at {price} (-{round(price * shares, 2)})")
+        if self.verbose:
+            print(f"{shares} shares of {symbol} bought at {price} (-{round(price * shares, 2)})")
     
     def sell(self, symbol, shares, price): # non-functional
-        pass
-
-    def get_asset_index(self, symbol):
-        for i in self.assets:
-            print(i)
+        if symbol in self.assets["stocks"]:
+            self.assets["stocks"][symbol]["shares"] -= shares
+            self.balance = round(self.balance + shares * price, 2)
+            if self.verbose:
+                print(f"{shares} shares of {symbol} sold at {price} (+{round(price * shares, 2)})")
+        else:
+            raise Exception("Cannot sell nonexistent shares of stock")
         
 
 class Test_Stock:
