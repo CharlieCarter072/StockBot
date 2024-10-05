@@ -32,13 +32,14 @@ class Virtual_Account:
             print(f"{shares} shares of {symbol} bought at {price} (-{round(price * shares, 2)})")
     
     def sell(self, symbol, shares, price): # non-functional
-        if symbol in self.assets["stocks"]:
+        if symbol in self.assets["stocks"] and self.assets["stocks"][symbol]["shares"] >= shares:
             self.assets["stocks"][symbol]["shares"] -= shares
             self.balance = round(self.balance + shares * price, 2)
             if self.verbose:
                 print(f"{shares} shares of {symbol} sold at {price} (+{round(price * shares, 2)})")
+            self.save_assets()
         else:
-            raise Exception("Cannot sell nonexistent shares of stock")
+            raise Exception("Cannot sell unowned shares of stock")
         
 
 class Test_Stock:
